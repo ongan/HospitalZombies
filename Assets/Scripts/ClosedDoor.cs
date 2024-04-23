@@ -1,53 +1,57 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
-public class DoorOpen : MonoBehaviour
+public class ClosedDoor : MonoBehaviour
 {
     public float theDistance;
     public GameObject actionKey;
-    public GameObject actionText;
-    public GameObject hinge;
+
+    public GameObject closedDoorText;
     public AudioSource doorSound;
- 
+    public float waitingSeconds;
+
     void Update()
     {
         theDistance = PlayerRay.distanceFromTarget;
 
-      
+
     }
     private void OnMouseOver()
     {
         if (theDistance <= 2)
         {
             actionKey.SetActive(true);
-            actionText.SetActive(true);
+            
+
         }
 
         else
         {
-            
+
         }
         if (Input.GetButton("Action"))
         {
             if (theDistance <= 2)
             {
-                this.gameObject.GetComponent<BoxCollider>().enabled = false;
+                
                 actionKey.SetActive(false);
-                actionText.SetActive(false);
-                hinge.GetComponent<Animation>().Play("MyDoorAnim");
-                hinge.GetComponent<Animation>().Play("OppositeDoor");
+                closedDoorText.SetActive(true);
+                StartCoroutine(ClosedDoors());
                 doorSound.Play();
             }
         }
-            
+
     }
     private void OnMouseExit()
     {
-        
-        actionKey.SetActive(false);
-        actionText.SetActive(false);
-    }
+        actionKey.SetActive(false);               
 
+
+    }
+    IEnumerator ClosedDoors()
+    {
+        yield return new WaitForSeconds(waitingSeconds);
+        closedDoorText.SetActive(false);
+    }
 }
