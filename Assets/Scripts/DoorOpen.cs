@@ -10,6 +10,7 @@ public class DoorOpen : MonoBehaviour
     public GameObject actionText;
     public GameObject hinge;
     public AudioSource doorSound;
+    public GameObject activeCross;
  
     void Update()
     {
@@ -23,13 +24,17 @@ public class DoorOpen : MonoBehaviour
         {
             actionKey.SetActive(true);
             actionText.SetActive(true);
+            activeCross.SetActive(true);
         }
 
         else
         {
-            
+            actionKey.SetActive(false);
+            actionText.SetActive(false);
+            activeCross.SetActive(false);
         }
         if (Input.GetButton("Action"))
+
         {
             if (theDistance <= 2)
             {
@@ -48,6 +53,7 @@ public class DoorOpen : MonoBehaviour
         
         actionKey.SetActive(false);
         actionText.SetActive(false);
+        activeCross.SetActive(false);
     }
 
 }
